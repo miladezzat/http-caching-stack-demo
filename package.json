@@ -1,0 +1,17 @@
+{
+  "name": "http-caching-stack-demo",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "scripts"
+  ],
+  "scripts": {
+    "dev:api": "npm --workspace apps/api run start:dev",
+    "dev:web": "npm --workspace apps/web run dev",
+    "dev": "concurrently -n api,web -c blue,green \"npm run dev:api\" \"npm run dev:web\"",
+    "purge:cloudflare": "node scripts/purge-cloudflare.js"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
