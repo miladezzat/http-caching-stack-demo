@@ -1,9 +1,10 @@
 
-export const metadata = { title: 'HTTP Caching Demo', description: 'Next.js + HTTP caching' };
+import './globals.css';
+export const metadata = { title: 'The Caching Laboratory', description: 'Inspect browser caching, HTTP validators, and durable CDN invalidation.' };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body style={{ fontFamily: 'system-ui', margin: 24 }}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }

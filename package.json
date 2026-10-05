@@ -1,17 +1,31 @@
 {
   "name": "http-caching-stack-demo",
   "private": true,
+  "type": "module",
   "workspaces": [
-    "apps/*",
-    "scripts"
+    "apps/*"
   ],
+  "engines": {
+    "node": ">=24 <25"
+  },
   "scripts": {
-    "dev:api": "npm --workspace apps/api run start:dev",
-    "dev:web": "npm --workspace apps/web run dev",
-    "dev": "concurrently -n api,web -c blue,green \"npm run dev:api\" \"npm run dev:web\"",
-    "purge:cloudflare": "node scripts/purge-cloudflare.js"
+    "dev": "node scripts/dev.mjs",
+    "setup": "node scripts/setup.mjs",
+    "build": "npm run build --workspaces",
+    "typecheck": "npm run typecheck --workspaces",
+    "test": "npm run build --workspace apps/api && node --import tsx --test --test-concurrency=1 tests/*.test.*",
+    "test:e2e": "playwright test",
+    "check": "npm run typecheck && npm test && npm run build --workspace apps/web",
+    "purge:cloudflare": "node scripts/purge-cloudflare.js",
+    "verify:cloudflare": "node scripts/verify-cloudflare.mjs"
+  },
+  "dependencies": {
+    "dotenv": "18.0.5"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "@playwright/test": "1.63.0",
+    "@types/node": "24.19.1",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3"
   }
 }
